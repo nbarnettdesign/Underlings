@@ -1,2 +1,0 @@
-# Underlings
-Coding Project

@@ -7,8 +7,11 @@ public class PlayerController : MonoBehaviour {
 
 
 	public float walkSpeed = .15f;
-	public float defaultWalkSpeed = .15f;
+	public float speed = .15f;
 	public float timerBetweenRolls = 1f;
+	public float runSpeed = .25f;
+	public float rollSpeed = .5f;
+	public float sneakSpeed = .075f;
 	private float timer;
 
 	// Update is called once per frame
@@ -22,37 +25,40 @@ public class PlayerController : MonoBehaviour {
 			
 		//Basic wasd to move in the directions at the speed walkSpeed
 		if(Input.GetKey(KeyCode.W)){
-			transform.position += transform.forward * walkSpeed;
+			transform.position += transform.forward * speed;
 		}
 		if(Input.GetKey(KeyCode.S)){
-			transform.position -= transform.forward * walkSpeed;
+			transform.position -= transform.forward * speed;
 		}
 		if(Input.GetKey(KeyCode.A)){
-			transform.position += (new Vector3 (-1, 0, 0) * walkSpeed);
+			transform.position += (new Vector3 (-1, 0, 0) * speed);
 		}
 		if(Input.GetKey(KeyCode.D)){
-			transform.position += (new Vector3 (1, 0, 0) * walkSpeed);
+			transform.position += (new Vector3 (1, 0, 0) * speed);
 		}
 		//Sneak Function, need to revise to clean up
 		if(Input.GetKeyDown(KeyCode.LeftShift)){
-			walkSpeed = (walkSpeed * .55f);
+			speed = sneakSpeed;
 		}
 		if (Input.GetKeyUp (KeyCode.LeftShift)) {
-			walkSpeed = defaultWalkSpeed;
+			speed = walkSpeed;
 		}
 		//Run Function
-		if(Input.GetKeyDown(KeyCode.Space)){
-			walkSpeed = .3f ;
-		}
+//		if(Input.GetKeyDown(KeyCode.Space)){
+//			walkSpeed = runSpeed ;
+//		}
 		if (Input.GetKeyUp (KeyCode.Space)) {
-			walkSpeed = defaultWalkSpeed;
+			speed = walkSpeed;
 		}
-//		if (Input.GetKey (KeyCode.Space)) {
-//			if (Time.time - timer > timerBetweenRolls) {
-//				timer = Time.time;
-//				walkSpeed = (walkSpeed * 4f);
-//			}
+		if (Input.GetKeyDown (KeyCode.Space)){
+			if (Time.time - timer > timerBetweenRolls) {
+				timer = Time.time;
+				speed = (rollSpeed);
+				yield return new WaitForSeconds (timerBetweenRolls);
+				speed = runSpeed;
+			}
 		}
+	}
 }
 
 
