@@ -14,9 +14,9 @@ public class Enemy : MonoBehaviour {
 
 
 
-
 	// Use this for initialization
 	void Start () {
+
 		player = GameObject.FindGameObjectWithTag ("Player");
 		navAgent = GetComponent<NavMeshAgent> ();
 	}
@@ -42,9 +42,8 @@ public class Enemy : MonoBehaviour {
 							}
 			}
 		}
-
-
-
 	}
 }
+
+
 

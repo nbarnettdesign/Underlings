@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
 	public float runSpeed = .25f;
 	public float rollSpeed = .5f;
 	public float sneakSpeed = .075f;
-
+	public float currentSpeed;
 	public float rollCool = 1f;
 	private float rollCount;
 	private bool didRoll = false;
@@ -28,7 +28,14 @@ public class PlayerController : MonoBehaviour {
 
 	void Update ()
 	{
-			
+		//if the player is NOT moving or is sneaking, then the is sneaking bool is true, which is used in the Enemy sound detection
+		if (!Input.GetKey (KeyCode.W) && !Input.GetKey (KeyCode.S) && !Input.GetKey (KeyCode.A) && !Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.LeftShift)) {
+			isSneaking = true;
+		} else {
+			isSneaking = false;
+		}
+
+
 		//Basic wasd to move in the directions at the speed walkSpeed
 		if (Input.GetKey (KeyCode.W)) {
 			transform.position += transform.forward * speed;
@@ -44,34 +51,21 @@ public class PlayerController : MonoBehaviour {
 		}
 		//Sneak Function, made public to edit as played to find good feel
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
-			isSneaking = true;
 			speed = sneakSpeed;
 		}
 		if (Input.GetKeyUp (KeyCode.LeftShift)) {
-			isSneaking = false;
 			speed = walkSpeed;
 		}
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			if (didRoll == false){
+			if (didRoll == false) {
 				speed = rollSpeed;
 				didRoll = true;
 			}
-//			if (didRoll == true) {
-//				if (Time.deltaTime - rollCount <= rollCool) {
-//					rollCount += Time.deltaTime;
-//					speed = rollSpeed;
-//				}
-//				if (rollCount > rollCool) {
-//					speed = runSpeed;
-//					didRoll = false;
-//				}
-//
-//				}			
-			}
+		}
+
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			speed = walkSpeed;
 			}
-
 
 
 		if (didRoll == true) {
