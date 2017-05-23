@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour {
 	private float rollCount;
 	private bool didRoll = false;
 
+	//For sneaking
+	public bool isSneaking = false;
+
 	// Update is called once per frame
 	void Start () {
 		rollCount = Time.deltaTime;
@@ -41,27 +44,47 @@ public class PlayerController : MonoBehaviour {
 		}
 		//Sneak Function, made public to edit as played to find good feel
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
+			isSneaking = true;
 			speed = sneakSpeed;
 		}
 		if (Input.GetKeyUp (KeyCode.LeftShift)) {
+			isSneaking = false;
 			speed = walkSpeed;
 		}
-		if (Input.GetKey (KeyCode.Space)) {
-			if (didRoll == false) {
-				if (Time.deltaTime - rollCount <= rollCool) {
-					rollCount++;
-					speed = rollSpeed;
-				}
-				if (rollCount > rollCool) {
-					speed = runSpeed;
-					didRoll = false;
-				}
-
-				}			
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			if (didRoll == false){
+				speed = rollSpeed;
+				didRoll = true;
+			}
+//			if (didRoll == true) {
+//				if (Time.deltaTime - rollCount <= rollCool) {
+//					rollCount += Time.deltaTime;
+//					speed = rollSpeed;
+//				}
+//				if (rollCount > rollCool) {
+//					speed = runSpeed;
+//					didRoll = false;
+//				}
+//
+//				}			
 			}
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			speed = walkSpeed;
+			}
+
+
+
+		if (didRoll == true) {
+			if (rollCount <= rollCool) {
+				rollCount += Time.deltaTime; 
+			}
+			else if (rollCount > rollCool) {
+				rollCount = 0;
+				didRoll = false;
+				speed = runSpeed;
+			}
 		}
+
 	}
 }
 			
