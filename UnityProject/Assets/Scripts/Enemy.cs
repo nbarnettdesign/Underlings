@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
 	public GameObject player;
 	private NavMeshAgent navAgent;
 	private float patrolSpeed = 3.5f;
+	private float chaseSpeed = 10.0f;
 
 
 
@@ -34,7 +35,7 @@ public class Enemy : MonoBehaviour {
 
 			if (Vector3.Distance (transform.position, player.transform.position) < detectionRange) {		//if player is within	
 				navAgent.destination = player.transform.position;
-				navAgent.speed = 6;
+				navAgent.speed = chaseSpeed;
 
 							foreach (Enemy enemy in GameObject.FindObjectsOfType<Enemy>()) {
 								enemy.detectionRange = 75;
