@@ -5,23 +5,17 @@ using UnityEngine.AI;
 
 public class EnemyPatrol : MonoBehaviour {
 
-		public Transform startNode;
-		public Transform middleNode;
-		public Transform endNode;
-		private NavMeshAgent NMA;
-	
+	public Transform startNode;
+	public Transform middleNode;
+	public Transform endNode;
+	private NavMeshAgent NMA;
+
+
+
 		// Update is called once per frame
 		void Update () {
-	
-			if (Vector3.Distance (transform.position, startNode.position) < 2) {
-				NMA.destination = middleNode.position;
-			}
-			if (Vector3.Distance (transform.position, middleNode.position) < 2) {
-			NMA.destination = endNode.position;
-			}
-			if (Vector3.Distance (transform.position, endNode.position) < 2) {
-				NMA.destination = startNode.position;
-			}
+		PatrolRoute ();
+			
 		}
 	
 		// Use this for initialization
@@ -29,4 +23,17 @@ public class EnemyPatrol : MonoBehaviour {
 			NMA = GetComponent<NavMeshAgent> ();
 			NMA.destination = startNode.position;
 		}
+	private void PatrolRoute(){
+
+		if (Vector3.Distance (transform.position, startNode.position) < 2) {
+			NMA.destination = middleNode.position;
+		}
+		if (Vector3.Distance (transform.position, middleNode.position) < 2) {
+			NMA.destination = endNode.position;
+		}
+		if (Vector3.Distance (transform.position, endNode.position) < 2) {
+			NMA.destination = startNode.position;
+		}
+		
+	}
 }

@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 	void Update ()
 	{
 		//if the player is NOT moving or is sneaking, then the is sneaking bool is true, which is used in the Enemy sound detection
-		if (!Input.GetKey (KeyCode.W) && !Input.GetKey (KeyCode.S) && !Input.GetKey (KeyCode.A) && !Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.LeftShift)) {
+		if (!Input.GetKey (KeyCode.W) && !Input.GetKey (KeyCode.S) && !Input.GetKey (KeyCode.A) && !Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.LeftShift) && !Input.GetKey (KeyCode.Space)) {
 			isSneaking = true;
 		} else {
 			isSneaking = false;

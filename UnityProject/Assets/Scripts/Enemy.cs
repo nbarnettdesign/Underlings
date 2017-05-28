@@ -6,19 +6,25 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour {
 
 	public float detectionRange =5;
-	public GameObject player;
+	public GameObject player = GameObject.FindGameObjectWithTag ("Player");
 	private NavMeshAgent navAgent;
-	private float patrolSpeed = 3.5f;
+	public float patrolSpeed = 3.5f;
 	private float chaseSpeed = 10.0f;
 
-
+	public Light spotlight;
+	public float viewDistance;
+	private float viewAngle;
+	Transform player;
 
 
 	// Use this for initialization
 	void Start () {
+		viewAngle = spotlight.spotAngle;
 
-		player = GameObject.FindGameObjectWithTag ("Player");
+		//player = GameObject.FindGameObjectWithTag ("Player");
 		navAgent = GetComponent<NavMeshAgent> ();
+		navAgent.speed = patrolSpeed;
+
 	}
 
 	// Update is called once per frame
@@ -27,8 +33,13 @@ public class Enemy : MonoBehaviour {
 			
 
 	}
+	void OnDrawGizmos() {
+		Gizmos.color = Color.red;
+		Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
+	}
 
-	void CheckDistance(){
+
+	private void CheckDistance(){
 		
 		if (!player.GetComponent<PlayerController>().isSneaking) { //If player is not sneaking
 
