@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour {
 	public GameObject guard;
 
 	public GameObject gameLoseUI;
-	public GameObject gameWinUI;
 	public GameObject alarmUI;
 	private bool gameIsOver;
 
@@ -117,11 +116,7 @@ public class Enemy : MonoBehaviour {
 		gameIsOver = true;
 		
 	}
-	private void ShowGameWinUI(){
-		gameWinUI.SetActive (true);
-		gameIsOver = true;
 
-	}
 	private void ShowAlarmUI(){
 		alarmUI.SetActive (true);
 
