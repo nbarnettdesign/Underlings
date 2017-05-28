@@ -6,13 +6,13 @@ using XboxCtrlrInput;
 public class PlayerController : MonoBehaviour {
 
 
-	public float walkSpeed = .15f;
-	public float speed = .15f;
-	public float runSpeed = .25f;
-	public float rollSpeed = .5f;
-	public float sneakSpeed = .075f;
+	public float walkSpeed = .075f;
+	public float speed = .075f;
+	public float runSpeed = .15f;
+	public float rollSpeed = .2f;
+	public float sneakSpeed = .04f;
 	public float currentSpeed;
-	public float rollCool = 1f;
+	public float rollCool = .5f;
 	private float rollCount;
 	private bool didRoll = false;
 
@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		rollCount = Time.deltaTime;
 	}
+
+
+		
 
 
 
@@ -79,6 +82,14 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
+	}
+
+	private void Caught(){
+		speed = 0f;
+		walkSpeed = 0f;
+		runSpeed = 0f;
+		rollSpeed = 0f;
+		sneakSpeed = 0f;
 	}
 }
 			
