@@ -78,23 +78,17 @@ public class Enemy : MonoBehaviour {
 			ShowAlarmUI();
 			cantSee = true;
 
-			foreach (Enemy enemy in GameObject.FindObjectsOfType<Enemy>()) {
-				//enemy.detectionRange = 75;
-			}
 		}	else if (cantSee == true){
 			spotlight.color = originalSpotlightColor;	
 			HideAlarmUI ();
 			//add quick search function
-			navAgent.destination = patrol.transform.position;
-			navAgent.speed = patrolSpeed;
-			cantSee = false;
-
+			//Invoke (ResetPatrol (), 5.0f);
 		}
 		
 	}
 	private void CheckDistance(){
 		
-		if (!player.GetComponent<PlayerController>().isSneaking) { //If player is not sneaking
+		if (!player.GetComponent<PlayerController> ().isSneaking) { //If player is not sneaking
 
 
 			if (Vector3.Distance (transform.position, player.transform.position) < detectionRange) {		//if player is within the sound detection range of an enemy
@@ -103,18 +97,17 @@ public class Enemy : MonoBehaviour {
 				ShowAlarmUI ();
 				cantHear = true;
 
-							foreach (Enemy enemy in GameObject.FindObjectsOfType<Enemy>()) {
-								//enemy.detectionRange = 75;
-							}
-			}else if (cantHear == true){
+				foreach (Enemy enemy in GameObject.FindObjectsOfType<Enemy>()) {
+					//enemy.detectionRange = 75;
+				}
+			} else if (cantHear == true) {
 				HideAlarmUI ();
-				navAgent.destination = patrol.transform.position;
-				navAgent.speed = patrolSpeed;
-				cantHear = false;
-			}
+			//	Invoke (ResetPatrol (), 5.0f);
 				
+			}
 		}
 	}
+	
 	private bool CanSeePlayer(){
 		if (Vector3.Distance(transform.position,theif.position)< viewDistance) {
 			Vector3 dirToPlayer = (theif.position - transform.position).normalized;
@@ -139,6 +132,13 @@ public class Enemy : MonoBehaviour {
 	private void HideAlarmUI(){
 		alarmUI.SetActive (false);
 	}
+	private void ResetPatrol (){
+		navAgent.destination = patrol.transform.position;
+		navAgent.speed = patrolSpeed;
+		cantSee = false;
+		cantHear = false;
+	}
+
 }
 
 
