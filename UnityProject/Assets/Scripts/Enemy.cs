@@ -76,13 +76,14 @@ public class Enemy : MonoBehaviour {
 			navAgent.destination = player.transform.position;
 			navAgent.speed = chaseSpeed;
 			ShowAlarmUI();
+			detectionRange = 75.0f;
 			cantSee = true;
 
 		}	else if (cantSee == true){
 			spotlight.color = originalSpotlightColor;	
 			HideAlarmUI ();
 			//add quick search function
-			//Invoke (ResetPatrol (), 5.0f);
+			Invoke ("ResetPatrol", 4.0f);
 		}
 		
 	}
@@ -102,7 +103,7 @@ public class Enemy : MonoBehaviour {
 				}
 			} else if (cantHear == true) {
 				HideAlarmUI ();
-			//	Invoke (ResetPatrol (), 5.0f);
+				Invoke ("ResetPatrol", 4.0f);
 				
 			}
 		}
@@ -137,6 +138,7 @@ public class Enemy : MonoBehaviour {
 		navAgent.speed = patrolSpeed;
 		cantSee = false;
 		cantHear = false;
+		detectionRange = 7;
 	}
 
 }
