@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour {
 	public GameObject player;
 	private NavMeshAgent navAgent;
 	public float patrolSpeed = 3.5f; 		// how fast the enemies walk while patrolling
-	private float chaseSpeed = 10.0f; 		// how fast the enemies chase the player once they spot them
+	private float chaseSpeed = 15.0f; 		// how fast the enemies chase the player once they spot them
 
 	public Light spotlight;
 	public float viewDistance;
@@ -19,13 +19,15 @@ public class Enemy : MonoBehaviour {
 	private Color originalSpotlightColor;
 	private Transform theif;
 	public GameObject guard;
+	public GameObject patrol;
 
 	public GameObject gameLoseUI;
 	public GameObject alarmUI;
-	private bool gameIsOver;
+	private bool gameIsOver;   //checks if the game has been won or the player has been caught
 
+	private bool cantSee = false;
+	private bool cantHear = false;
 
-	// Use this for initialization
 	void Start () {
 		viewAngle = spotlight.spotAngle;
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -50,7 +52,7 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 		
-	//Added pickups, houses to go into, vision cones, and end game conditions
+
 	private void Captured (){
 
 		if (Vector3.Distance (transform.position, player.transform.position) < 1f) {
@@ -73,13 +75,20 @@ public class Enemy : MonoBehaviour {
 			spotlight.color = Color.red;
 			navAgent.destination = player.transform.position;
 			navAgent.speed = chaseSpeed;
-			ShowAlarmUI ();
+			ShowAlarmUI();
+			cantSee = true;
 
 			foreach (Enemy enemy in GameObject.FindObjectsOfType<Enemy>()) {
-				enemy.detectionRange = 75;
+				//enemy.detectionRange = 75;
 			}
-		}	else {
-			spotlight.color = originalSpotlightColor;			
+		}	else if (cantSee == true){
+			spotlight.color = originalSpotlightColor;	
+			HideAlarmUI ();
+			//add quick search function
+			navAgent.destination = patrol.transform.position;
+			navAgent.speed = patrolSpeed;
+			cantSee = false;
+
 		}
 		
 	}
@@ -92,11 +101,18 @@ public class Enemy : MonoBehaviour {
 				navAgent.destination = player.transform.position;
 				navAgent.speed = chaseSpeed;
 				ShowAlarmUI ();
+				cantHear = true;
 
 							foreach (Enemy enemy in GameObject.FindObjectsOfType<Enemy>()) {
-								enemy.detectionRange = 75;
+								//enemy.detectionRange = 75;
 							}
+			}else if (cantHear == true){
+				HideAlarmUI ();
+				navAgent.destination = patrol.transform.position;
+				navAgent.speed = patrolSpeed;
+				cantHear = false;
 			}
+				
 		}
 	}
 	private bool CanSeePlayer(){
@@ -119,9 +135,9 @@ public class Enemy : MonoBehaviour {
 
 	private void ShowAlarmUI(){
 		alarmUI.SetActive (true);
-
-
-
+	}
+	private void HideAlarmUI(){
+		alarmUI.SetActive (false);
 	}
 }
 
