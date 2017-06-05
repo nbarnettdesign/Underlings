@@ -102,7 +102,7 @@ public class Enemy : MonoBehaviour {
 	//--------------------------------------------------------------------------------------
 	private void Captured (){
 		// if the enemy gets close enough to the player as though they were basically touching, the game over screen shows, and the player controller is disabled
-		if (Vector3.Distance (transform.position, player.transform.position) < 1f) {
+		if (Vector3.Distance (transform.position, player.transform.position) < 2f) {
 			
 			player.GetComponent<PlayerController> ().enabled = false;
 			ShowGameLoseUI ();
