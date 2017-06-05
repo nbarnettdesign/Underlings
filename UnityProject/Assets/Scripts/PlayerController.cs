@@ -6,19 +6,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	//default character walking speed
-	public float walkSpeed = .075f;
+	public float walkSpeed = 7.5f;
 
 	//current speed of character
-	public float speed = .075f;	
+	public float speed = 7.5f;	
 
 	// Character run speed
-	public float runSpeed = .15f;		
+	public float runSpeed = 10f;		
 
 	// Character roll speed
-	public float rollSpeed = .2f;		
+	public float rollSpeed = 12f;		
 
 	// Character sneak speed
-	public float sneakSpeed = .04f;	
+	public float sneakSpeed = 2f;	
 
 	//display of Characters current speed
 	public float currentSpeed;	
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour {
 	private void SneakAndRun(){
 		//Sneak Function, made public to edit as played to find good feel, Key down sneak, key up walk
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
-			speed = sneakSpeed;
+			speed = sneakSpeed ;
 		}
 		if (Input.GetKeyUp (KeyCode.LeftShift)) {
 			speed = walkSpeed;
@@ -122,16 +122,16 @@ public class PlayerController : MonoBehaviour {
 	private void PlayerMovement(){
 		//Basic WASD to move in the directions at the speed walkSpeed
 		if (Input.GetKey (KeyCode.W)) {
-			transform.position += transform.forward * speed;
+			transform.position += transform.forward * speed * Time.deltaTime;
 		}
 		if (Input.GetKey (KeyCode.S)) {
-			transform.position -= transform.forward * speed;
+			transform.position -= transform.forward * speed * Time.deltaTime;
 		}
 		if (Input.GetKey (KeyCode.A)) {
-			transform.position += (new Vector3 (-1, 0, 0) * speed);
+			transform.position += (new Vector3 (-1, 0, 0) * speed) * Time.deltaTime;
 		}
 		if (Input.GetKey (KeyCode.D)) {
-			transform.position += (new Vector3 (1, 0, 0) * speed);
+			transform.position += (new Vector3 (1, 0, 0) * speed) *Time.deltaTime;
 		}
 	}
 
