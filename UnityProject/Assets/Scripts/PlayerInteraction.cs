@@ -26,7 +26,26 @@ public class PlayerInteraction : MonoBehaviour {
 	// bool to say the player has won
 	private bool gameIsWon;		
 
-	
+	//Game Object that is the alarm to turn off on finish
+	public GameObject alarmUI;
+
+	//--------------------------------------------------------------------------------------
+	//	Start()
+	// Runs during initialisation
+	// Sets UI to show 0 shinies at start
+	//
+	//
+	// Param:
+	//		None
+	// Return:
+	//		Void
+	//--------------------------------------------------------------------------------------
+	void Start () {
+		countText.text = "Shinies Value: " + count.ToString ();
+
+
+
+	}
 	//--------------------------------------------------------------------------------------
 	//	Update()
 	// Runs every frame
@@ -42,9 +61,9 @@ public class PlayerInteraction : MonoBehaviour {
 		if (gameIsWon){
 			if (Input.GetKeyDown (KeyCode.Return)) {
 				SceneManager.LoadScene (0);
-			}
-			
+			}					
 		}
+		SetCountText ();
 	}
 	//--------------------------------------------------------------------------------------
 	//	OnTriggerEnter()
@@ -99,6 +118,6 @@ public class PlayerInteraction : MonoBehaviour {
 		gameIsWon = true;
 		gameUI.SetActive (false);
 		blockedOff.SetActive (true);
-
+		alarmUI.SetActive (false);
 	}
 }

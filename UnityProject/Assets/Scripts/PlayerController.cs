@@ -23,30 +23,9 @@ public class PlayerController : MonoBehaviour {
 	//display of Characters current speed
 	public float currentSpeed;	
 
-	// cooldown of roll
-	//public float rollCool = .5f;	
-
-	// count to compare to roll cooldown
-	//private float rollCount;	
-
-	// bool to tell if character has rolled so they cant roll again until cooldown is up
-	//private bool didRoll = false;		
-
 	//Bool to indicate if character is sneaking
 	public bool isSneaking = false;
 
-	//--------------------------------------------------------------------------------------
-	//	Start()
-	// Runs during initialisation
-	//
-	// Param:
-	//		None
-	// Return:
-	//		Void
-	//--------------------------------------------------------------------------------------
-	void Start () {
-		//rollCount = Time.deltaTime;
-	}
 
 	//--------------------------------------------------------------------------------------
 	//	Update()
@@ -85,35 +64,17 @@ public class PlayerController : MonoBehaviour {
 			speed = walkSpeed;
 		}
 
-		//Run and Roll Function, Made public to edit as played to find good feel, key down run, key up walk
-		//on key pressed, if the roll is off cooldown the roll speed is on first, then drops down to run
-		//may remove roll as it currently doesnt seem neccisary, but requires futher testing
+		//Run Function, Made public to edit as played to find good feel, key down run, key up walk
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			speed = runSpeed;
-//			if (didRoll == false) {
-//				speed = rollSpeed;
-//				didRoll = true;
-//			}
 		}
 		if (Input.GetKeyUp (KeyCode.Space) && !Input.GetKey (KeyCode.LeftShift)) {
 				speed = walkSpeed;
 		}else if (Input.GetKeyUp (KeyCode.Space) && Input.GetKey (KeyCode.LeftShift)){
 			speed = sneakSpeed;
 		}
-//
-//		//Roll Countdown, lets player roll then disables the roll until the cooldown time has passed
-//
-//		if (didRoll == true) {
-//			if (rollCount <= rollCool) {
-//				rollCount += Time.deltaTime; 
-//			}
-//			else if (rollCount > rollCool) {
-//				rollCount = 0;
-//				didRoll = false;
-//				speed = runSpeed;
-//			}
-//		}
 	}
+
 	//--------------------------------------------------------------------------------------
 	//	PlayerMovement()
 	// Basic WASD to move in the directions at the speed walkSpeed
@@ -124,8 +85,8 @@ public class PlayerController : MonoBehaviour {
 	//		Void
 	//--------------------------------------------------------------------------------------
 	private void PlayerMovement(){
-		//Basic WASD to move in the directions at the speed walkSpeed
-		if (Input.GetKey (KeyCode.W)) {
+		//Basic WASD to move in the directions at the speed walkSpeed .71717171
+		if ((Input.GetKey (KeyCode.W)) && !(Input.GetKey (KeyCode.A))) {
 			transform.position += transform.forward * speed * Time.deltaTime;
 		}
 		if (Input.GetKey (KeyCode.S)) {
@@ -137,7 +98,21 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.D)) {
 			transform.position += (new Vector3 (1, 0, 0) * speed) * Time.deltaTime;
 		}
+		if ((Input.GetKey (KeyCode.W)) && (Input.GetKey (KeyCode.A))){
+			transform.position += transform.forward * speed * Time.deltaTime * 0.7171f;
+			transform.position += (new Vector3 (-1, 0, 0) * speed) * Time.deltaTime * 0.7171f;
+		}
+		if ((Input.GetKey (KeyCode.W)) && (Input.GetKey (KeyCode.D))){
+			speed = speed * 0.7171f;
+		}
+		if ((Input.GetKey (KeyCode.S)) && (Input.GetKey (KeyCode.A))){
+			speed = speed * 0.7171f;
+		}
+		if ((Input.GetKey (KeyCode.S)) && (Input.GetKey (KeyCode.D))){
+			speed = speed * 0.7171f;
+		}
 	}
+
 
 	//--------------------------------------------------------------------------------------
 	//	Sneaking()
@@ -171,7 +146,6 @@ public class PlayerController : MonoBehaviour {
 		speed = 0f;
 		walkSpeed = 0f;
 		runSpeed = 0f;
-//		rollSpeed = 0f;
 		sneakSpeed = 0f;
 	}
 }
