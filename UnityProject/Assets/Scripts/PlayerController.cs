@@ -99,17 +99,17 @@ public class PlayerController : MonoBehaviour {
 			transform.position += (new Vector3 (1, 0, 0) * speed) * Time.deltaTime;
 		}
 		if ((Input.GetKey (KeyCode.W)) && (Input.GetKey (KeyCode.A))){
-			transform.position += transform.forward * speed * Time.deltaTime * 0.7171f;
-			transform.position += (new Vector3 (-1, 0, 0) * speed) * Time.deltaTime * 0.7171f;
+			transform.position += transform.forward * speed * Time.deltaTime;
+			transform.position += (new Vector3 (-1, 0, 0) * speed) * Time.deltaTime;
 		}
 		if ((Input.GetKey (KeyCode.W)) && (Input.GetKey (KeyCode.D))){
-			speed = speed * 0.7171f;
+			speed = speed ;
 		}
 		if ((Input.GetKey (KeyCode.S)) && (Input.GetKey (KeyCode.A))){
-			speed = speed * 0.7171f;
+			speed = speed;
 		}
 		if ((Input.GetKey (KeyCode.S)) && (Input.GetKey (KeyCode.D))){
-			speed = speed * 0.7171f;
+			speed = speed;
 		}
 	}
 
