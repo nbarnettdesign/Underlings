@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class EnemyPatrol : MonoBehaviour {
 
 	//The Start node of the enemies patrol

@@ -16,7 +16,6 @@ public class FollowCamera : MonoBehaviour {
 	//--------------------------------------------------------------------------------------
 	void Update () {
 		// makes the camera stay on the target
-		//Script mainly here for Beta extra camera functions
 		transform.position = target.position;
 	}
 }

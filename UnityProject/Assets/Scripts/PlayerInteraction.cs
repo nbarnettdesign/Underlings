@@ -21,14 +21,20 @@ public class PlayerInteraction : MonoBehaviour {
 	public GameObject gameUI;	
 
 	// block stopping player being attacked after finishing
-	public GameObject blockedOff;	
+	public GameObject blockedOff;
 
 	// bool to say the player has won
-	private bool gameIsWon;		
+	private bool gameIsWon;	
 
+<<<<<<< .mine
+
+||||||| .r29
+	
+=======
 	//Game Object that is the alarm to turn off on finish
 	public GameObject alarmUI;
 
+>>>>>>> .r39
 	//--------------------------------------------------------------------------------------
 	//	Start()
 	// Runs during initialisation
@@ -50,7 +56,7 @@ public class PlayerInteraction : MonoBehaviour {
 	//	Update()
 	// Runs every frame
 	//
-	//if the game is won, the player can press enter to start again.
+	//if the game is won, the game stopps  the player can press enter to start again.
 	// Param:
 	//		None
 	// Return:
@@ -59,12 +65,18 @@ public class PlayerInteraction : MonoBehaviour {
 	void Update () {
 		
 		if (gameIsWon){
+			Time.timeScale = 0;
+
 			if (Input.GetKeyDown (KeyCode.Return)) {
-				SceneManager.LoadScene (0);
+				SceneManager.LoadScene (1);
+				Time.timeScale = 1;
+
 			}					
 		}
 		SetCountText ();
 	}
+
+
 	//--------------------------------------------------------------------------------------
 	//	OnTriggerEnter()
 	// Trigger detection, Detects when the player passes through a Coin for pickup, disables the coin, and adds one to the coin count.
