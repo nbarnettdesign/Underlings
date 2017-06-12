@@ -14,10 +14,10 @@ public class PlayerController : MonoBehaviour {
 	public float speed = 7.5f;	
 
 	// Character run speed
-	public float runSpeed = 10f;		
+	public float runSpeed = 10f;
 
-	// Character roll speed
-	//public float rollSpeed = 12f;		
+	public float diagonalRunSpeed;
+	public float diagonalWalkSpeed;
 
 	// Character sneak speed
 	public float sneakSpeed = 3f;	
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour {
 	//display of Characters current speed
 	public float currentSpeed;	
 
-<<<<<<< .mine
+
 	//Bool to indicate if character is sneaking
 	public bool isSneaking = false;
 
@@ -35,28 +35,16 @@ public class PlayerController : MonoBehaviour {
 	//UI of running man
 	public GameObject running;
 
-||||||| .r30
-	// cooldown of roll
-	//public float rollCool = .5f;	
-
-	// count to compare to roll cooldown
-	//private float rollCount;	
-
-	// bool to tell if character has rolled so they cant roll again until cooldown is up
-	//private bool didRoll = false;		
-
-=======
->>>>>>> .r39
 	//bool for when game is paused
 	public bool paused;
 
-<<<<<<< .mine
+
 	//Pause screen
 	public GameObject pauseUI;
 	public Button resume;
 	public Button restart;
 	public Button mainMenu;
-||||||| .r30
+
 	//--------------------------------------------------------------------------------------
 	//	Start()
 	// Runs during initialisation
@@ -67,10 +55,10 @@ public class PlayerController : MonoBehaviour {
 	//		Void
 	//--------------------------------------------------------------------------------------
 	void Start () {
-		//rollCount = Time.deltaTime;
+		diagonalRunSpeed = runSpeed * .7171f;
+		diagonalWalkSpeed = walkSpeed * .7171f;
 	}
-=======
->>>>>>> .r39
+
 
 	//--------------------------------------------------------------------------------------
 	//	Update()
@@ -106,8 +94,7 @@ public class PlayerController : MonoBehaviour {
 		
 	//--------------------------------------------------------------------------------------
 	//	SneakAndRun()
-	// Slows the player to a sneak speed when left shift is pressed, and a roll for half a second then run speed when spacebar is pressed
-	// and a timer to stop roll being spammed for massive increased speed 
+	// Slows the player to a sneak speed when left shift is pressed 
 	//
 	// Param:
 	//		none
@@ -123,51 +110,25 @@ public class PlayerController : MonoBehaviour {
 			speed = walkSpeed;
 		}
 
-<<<<<<< .mine
+
 		//Run Function, Made public to edit as played to find good feel, key down run, key up walk
 
-||||||| .r30
+
 		//Run and Roll Function, Made public to edit as played to find good feel, key down run, key up walk
-		//on key pressed, if the roll is off cooldown the roll speed is on first, then drops down to run
-		//may remove roll as it currently doesnt seem neccisary, but requires futher testing
-=======
 		//Run Function, Made public to edit as played to find good feel, key down run, key up walk
->>>>>>> .r39
+
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			speed = runSpeed;
-<<<<<<< .mine
 
-||||||| .r30
-//			if (didRoll == false) {
-//				speed = rollSpeed;
-//				didRoll = true;
-//			}
-=======
->>>>>>> .r39
+
+
 		}
 		if (Input.GetKeyUp (KeyCode.Space) && !Input.GetKey (KeyCode.LeftShift)) {
 				speed = walkSpeed;
 		}else if (Input.GetKeyUp (KeyCode.Space) && Input.GetKey (KeyCode.LeftShift)){
 			speed = sneakSpeed;
 		}
-<<<<<<< .mine
 
-||||||| .r30
-//
-//		//Roll Countdown, lets player roll then disables the roll until the cooldown time has passed
-//
-//		if (didRoll == true) {
-//			if (rollCount <= rollCool) {
-//				rollCount += Time.deltaTime; 
-//			}
-//			else if (rollCount > rollCool) {
-//				rollCount = 0;
-//				didRoll = false;
-//				speed = runSpeed;
-//			}
-//		}
-=======
->>>>>>> .r39
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -181,7 +142,7 @@ public class PlayerController : MonoBehaviour {
 	//--------------------------------------------------------------------------------------
 	private void PlayerMovement(){
 		//Basic WASD to move in the directions at the speed walkSpeed .71717171
-		if ((Input.GetKey (KeyCode.W)) && !(Input.GetKey (KeyCode.A))) {
+		if (Input.GetKey (KeyCode.W)) {
 			transform.position += transform.forward * speed * Time.deltaTime;
 		}
 		if (Input.GetKey (KeyCode.S)) {
@@ -193,19 +154,27 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.D)) {
 			transform.position += (new Vector3 (1, 0, 0) * speed) * Time.deltaTime;
 		}
-		if ((Input.GetKey (KeyCode.W)) && (Input.GetKey (KeyCode.A))){
-			transform.position += transform.forward * speed * Time.deltaTime;
-			transform.position += (new Vector3 (-1, 0, 0) * speed) * Time.deltaTime;
+
+		if (
+			(Input.GetKey (KeyCode.W) && Input.GetKey (KeyCode.D)) && (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift)) || 
+			(Input.GetKey (KeyCode.W) && Input.GetKey (KeyCode.A)) && (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift)) || 
+			(Input.GetKey (KeyCode.S) && Input.GetKey (KeyCode.D)) && (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift)) ||
+			(Input.GetKey (KeyCode.S) && Input.GetKey (KeyCode.A)) && (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift))){
+			speed = diagonalWalkSpeed ;
+		}else if (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift)){
+			speed = walkSpeed;
 		}
-		if ((Input.GetKey (KeyCode.W)) && (Input.GetKey (KeyCode.D))){
-			speed = speed ;
+		if (
+			(Input.GetKey (KeyCode.W) && Input.GetKey (KeyCode.D)) && (Input.GetKey (KeyCode.Space) && !Input.GetKey (KeyCode.LeftShift)) ||
+			(Input.GetKey (KeyCode.W) && Input.GetKey (KeyCode.A)) && (Input.GetKey (KeyCode.Space) && !Input.GetKey (KeyCode.LeftShift)) ||
+			(Input.GetKey (KeyCode.S) && Input.GetKey (KeyCode.D)) && (Input.GetKey (KeyCode.Space) && !Input.GetKey (KeyCode.LeftShift)) ||
+			(Input.GetKey (KeyCode.S) && Input.GetKey (KeyCode.A)) && (Input.GetKey (KeyCode.Space) && !Input.GetKey (KeyCode.LeftShift))) {
+			speed = diagonalRunSpeed;
+		} else if (Input.GetKey (KeyCode.Space) && !Input.GetKey (KeyCode.LeftShift)) {
+			speed = runSpeed;
 		}
-		if ((Input.GetKey (KeyCode.S)) && (Input.GetKey (KeyCode.A))){
-			speed = speed;
-		}
-		if ((Input.GetKey (KeyCode.S)) && (Input.GetKey (KeyCode.D))){
-			speed = speed;
-		}
+			
+
 	}
 
 

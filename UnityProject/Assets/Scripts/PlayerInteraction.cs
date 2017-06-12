@@ -26,15 +26,11 @@ public class PlayerInteraction : MonoBehaviour {
 	// bool to say the player has won
 	private bool gameIsWon;	
 
-<<<<<<< .mine
 
-||||||| .r29
-	
-=======
 	//Game Object that is the alarm to turn off on finish
 	public GameObject alarmUI;
 
->>>>>>> .r39
+
 	//--------------------------------------------------------------------------------------
 	//	Start()
 	// Runs during initialisation
