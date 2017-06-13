@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour {
 	//display of Characters current speed
 	public float currentSpeed;	
 
-
 	//Bool to indicate if character is sneaking
 	public bool isSneaking = false;
 
@@ -39,16 +38,10 @@ public class PlayerController : MonoBehaviour {
 	public bool paused;
 
 
-	//Pause screen
-	public GameObject pauseUI;
-	public Button resume;
-	public Button restart;
-	public Button mainMenu;
-
 	//--------------------------------------------------------------------------------------
 	//	Start()
 	// Runs during initialisation
-	//
+	//Sets the Diagonal Speeds to .7171 of the origional speeds
 	// Param:
 	//		None
 	// Return:
@@ -74,20 +67,6 @@ public class PlayerController : MonoBehaviour {
 		PlayerMovement ();
 		SneakAndRun ();
 	
-//		if (paused == false){
-//			if (Input.GetKeyDown (KeyCode.Escape)) {
-//				paused = true;
-//				pauseUI.gameObject.SetActive (true);
-//			}
-//		}
-//		if (paused == true ){
-//			Time.timeScale = 0;
-//			if (Input.GetKeyDown (KeyCode.Escape)) {
-//				Time.timeScale = 1;
-//				paused = false;
-//				pauseUI.gameObject.SetActive (false);
-//			}
-//		}
 	}
 
 	
@@ -110,11 +89,6 @@ public class PlayerController : MonoBehaviour {
 			speed = walkSpeed;
 		}
 
-
-		//Run Function, Made public to edit as played to find good feel, key down run, key up walk
-
-
-		//Run and Roll Function, Made public to edit as played to find good feel, key down run, key up walk
 		//Run Function, Made public to edit as played to find good feel, key down run, key up walk
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
@@ -133,7 +107,7 @@ public class PlayerController : MonoBehaviour {
 
 	//--------------------------------------------------------------------------------------
 	//	PlayerMovement()
-	// Basic WASD to move in the directions at the speed walkSpeed
+	// Basic WASD to move in the directions at the speed walkSpeed, and adjusting for moving Diagonally
 	//
 	// Param:
 	//		none
@@ -155,6 +129,7 @@ public class PlayerController : MonoBehaviour {
 			transform.position += (new Vector3 (1, 0, 0) * speed) * Time.deltaTime;
 		}
 
+		//an attempt to normalise speed
 		if (
 			(Input.GetKey (KeyCode.W) && Input.GetKey (KeyCode.D)) && (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift)) || 
 			(Input.GetKey (KeyCode.W) && Input.GetKey (KeyCode.A)) && (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift)) || 
@@ -181,7 +156,7 @@ public class PlayerController : MonoBehaviour {
 	//--------------------------------------------------------------------------------------
 	//	Sneaking()
 	// Makes sure the player either isnt moving, is moving while holding down the shift key(Sneak), and not holding down the spacebar(Run)
-	// or if you press run and then sneak so sneaking but also holding down space. And when sneaking or running, showing the appropriate 
+	// or if you press run and then sneak so sneaking but also holding down space. And when sneaking or running, showing the appropriate icon
 	// used for the purpose of enemy sound detection
 	// Param:
 	//		none
