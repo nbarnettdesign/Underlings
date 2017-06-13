@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour {
 	//--------------------------------------------------------------------------------------
 	//	Sneaking()
 	// Makes sure the player either isnt moving, is moving while holding down the shift key(Sneak), and not holding down the spacebar(Run)
-	// or if you press run and then sneak so sneaking but also holding down space
+	// or if you press run and then sneak so sneaking but also holding down space. And when sneaking or running, showing the appropriate 
 	// used for the purpose of enemy sound detection
 	// Param:
 	//		none

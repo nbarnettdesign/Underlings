@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour {
 	//--------------------------------------------------------------------------------------
 	//	Update()
 	// Runs every frame
-	// Lets you reset game if you get caught.
+	// Lets you reset game if you get caught.Or go back to main menu
 	// Param:
 	//		None
 	// Return:
@@ -83,11 +83,16 @@ public class Enemy : MonoBehaviour {
 		CheckDistance ();
 		CheckVisual ();
 		Captured ();
-		//if the player is captured, the enter key will resart the level
+		//if the player is captured, the enter key will resart the level, escape will go to main menu
 		if (gameIsOver) {
 			if (Input.GetKeyDown (KeyCode.Return)) {
-				SceneManager.LoadScene (0);
+				SceneManager.LoadScene (1);
 			}
+		}
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			SceneManager.LoadScene (0);
+			Time.timeScale = 1;
+
 		}
 	}
 		

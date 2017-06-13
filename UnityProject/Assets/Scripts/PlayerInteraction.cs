@@ -52,7 +52,7 @@ public class PlayerInteraction : MonoBehaviour {
 	//	Update()
 	// Runs every frame
 	//
-	//if the game is won, the game stopps  the player can press enter to start again.
+	//if the game is won, the game stopps  the player can press enter to start again, or Escape to go back to Main menu.
 	// Param:
 	//		None
 	// Return:
@@ -66,8 +66,12 @@ public class PlayerInteraction : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Return)) {
 				SceneManager.LoadScene (1);
 				Time.timeScale = 1;
+			}
+			if (Input.GetKeyDown (KeyCode.Escape)) {
+				SceneManager.LoadScene (0);
+				Time.timeScale = 1;
 
-			}					
+			}
 		}
 		SetCountText ();
 	}
